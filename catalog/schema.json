@@ -1,0 +1,70 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://beacontaylor.com/schemas/skill-catalog.json",
+  "title": "BTCP skill catalog",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "skills"],
+  "properties": {
+    "schemaVersion": {
+      "const": 1
+    },
+    "skills": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "name",
+          "title",
+          "summary",
+          "category",
+          "version",
+          "updatedAt",
+          "compatibility",
+          "promptMode"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$",
+            "maxLength": 64
+          },
+          "title": { "type": "string", "minLength": 1 },
+          "summary": { "type": "string", "minLength": 1 },
+          "category": { "type": "string", "minLength": 1 },
+          "version": {
+            "type": "string",
+            "pattern": "^\\d+\\.\\d+\\.\\d+$"
+          },
+          "updatedAt": { "type": "string", "format": "date" },
+          "compatibility": {
+            "type": "array",
+            "items": {
+              "enum": [
+                "chatgpt",
+                "claude",
+                "codex",
+                "cursor",
+                "gemini-cli",
+                "github-copilot",
+                "opencode"
+              ]
+            },
+            "minItems": 1,
+            "uniqueItems": true
+          },
+          "promptMode": {
+            "enum": ["standalone", "reduced", "unavailable"]
+          },
+          "requirements": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "featured": { "type": "boolean" }
+        }
+      }
+    }
+  }
+}
+

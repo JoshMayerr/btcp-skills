@@ -1,0 +1,20 @@
+{
+  "name": "btcp",
+  "interface": {
+    "displayName": "BTCP"
+  },
+  "plugins": [
+    {
+      "name": "btcp-skills",
+      "source": {
+        "source": "local",
+        "path": "./plugins/btcp-skills"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    }
+  ]
+}

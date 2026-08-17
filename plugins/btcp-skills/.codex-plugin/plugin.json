@@ -1,0 +1,24 @@
+{
+  "name": "btcp-skills",
+  "version": "0.1.0",
+  "description": "Portable BTCP workflows for AI agents.",
+  "author": {
+    "name": "Beacon-Taylor Computational Partners",
+    "email": "team@beacontaylor.com",
+    "url": "https://beacontaylor.com"
+  },
+  "homepage": "https://beacontaylor.com/skills",
+  "repository": "https://github.com/JoshMayerr/btcp-skills",
+  "keywords": ["agent-skills", "enterprise-ai", "workflows"],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "BTCP skills",
+    "shortDescription": "Portable workflows for AI agents.",
+    "longDescription": "BTCP skills adds focused, reusable workflows for ChatGPT, Codex, Claude, and other compatible AI agents.",
+    "developerName": "Beacon-Taylor Computational Partners",
+    "category": "Productivity",
+    "capabilities": ["Guided workflows"],
+    "websiteURL": "https://beacontaylor.com/skills",
+    "defaultPrompt": ["Show me the available BTCP skills."]
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "plugins": [
+    {
+      "name": "btcp-skills",
+      "title": "BTCP skills",
+      "summary": "Portable BTCP workflows for AI agents.",
+      "kind": "collection",
+      "version": "0.1.0",
+      "sourcePath": "plugins/btcp-skills",
+      "skills": []
+    }
+  ]
+}

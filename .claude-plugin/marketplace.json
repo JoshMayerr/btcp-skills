@@ -1,0 +1,27 @@
+{
+  "name": "btcp-skills",
+  "owner": {
+    "name": "Beacon-Taylor Computational Partners",
+    "email": "team@beacontaylor.com"
+  },
+  "description": "Portable BTCP workflows for AI agents.",
+  "metadata": {
+    "description": "Portable BTCP workflows for AI agents."
+  },
+  "plugins": [
+    {
+      "name": "btcp-skills",
+      "source": "./plugins/btcp-skills",
+      "description": "Portable BTCP workflows for AI agents.",
+      "version": "0.1.0",
+      "author": {
+        "name": "Beacon-Taylor Computational Partners",
+        "email": "team@beacontaylor.com"
+      },
+      "homepage": "https://beacontaylor.com/skills",
+      "repository": "https://github.com/JoshMayerr/btcp-skills",
+      "category": "Productivity",
+      "tags": ["agent-skills", "enterprise-ai", "workflows"]
+    }
+  ]
+}

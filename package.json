@@ -1,0 +1,13 @@
+{
+  "name": "btcp-skills",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "sync:plugins": "node scripts/sync-plugin-skills.mjs",
+    "validate": "node scripts/validate-repo.mjs",
+    "package": "node scripts/package-skills.mjs",
+    "test": "npm run sync:plugins && npm run validate"
+  }
+}
+
