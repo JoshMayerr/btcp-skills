@@ -37,6 +37,23 @@
       "featured": false
     },
     {
+      "name": "cim-to-lbo",
+      "title": "CIM to LBO",
+      "summary": "Adapt a prior LBO workbook to a new target using a CIM while preserving the original model's structure, formulas, formatting, and presentation.",
+      "category": "Private equity",
+      "version": "0.1.0",
+      "updatedAt": "2026-08-18",
+      "status": "published",
+      "compatibility": ["chatgpt", "claude", "codex"],
+      "builderMode": "source-linked",
+      "promptMode": "standalone",
+      "requirements": [
+        "Native Excel workbook inspection, editing, recalculation, rendering, and export capability",
+        "Document and PDF extraction, OCR, and rendering capability"
+      ],
+      "featured": true
+    },
+    {
       "name": "financial-data-sourcing",
       "title": "Financial data sourcing",
       "summary": "Route financial data through authorized connectors first, then a logged-in browser session and local browser automation.",
