@@ -190,6 +190,27 @@ for (const plugin of pluginsCatalog.plugins) {
     }
   }
 
+  const mcpPath = path.join(sourceDirectory, ".mcp.json");
+  try {
+    await access(mcpPath);
+    const mcpManifest = JSON.parse(await readFile(mcpPath, "utf8"));
+    const servers = mcpManifest.mcpServers;
+    if (!servers || typeof servers !== "object" || Array.isArray(servers)) {
+      throw new Error(`${plugin.name}/.mcp.json must contain an mcpServers object.`);
+    }
+    for (const [serverName, server] of Object.entries(servers)) {
+      if (!namePattern.test(serverName) || server?.type !== "http") {
+        throw new Error(`${plugin.name}/.mcp.json has an invalid HTTP server: ${serverName}.`);
+      }
+      const url = new URL(server.url);
+      if (url.protocol !== "https:") {
+        throw new Error(`${plugin.name}/.mcp.json must use HTTPS for ${serverName}.`);
+      }
+    }
+  } catch (error) {
+    if (error?.code !== "ENOENT") throw error;
+  }
+
   for (const skillName of plugin.skills) {
     if (!skillNames.includes(skillName)) {
       throw new Error(`${plugin.name} references unknown skill ${skillName}.`);

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Spread trading comps"
+  short_description: "Build sourced trading comps and valuation ranges"
+  default_prompt: "Use $spread-trading-comps to build a sourced trading comps analysis for this target."

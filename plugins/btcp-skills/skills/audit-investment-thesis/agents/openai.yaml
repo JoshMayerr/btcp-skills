@@ -1,0 +1,4 @@
+interface:
+  display_name: "Audit investment thesis"
+  short_description: "Audit deals against mandate and behavior"
+  default_prompt: "Use $audit-investment-thesis to audit this opportunity against our investment criteria and historical decisions."

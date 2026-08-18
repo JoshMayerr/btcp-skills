@@ -2,6 +2,39 @@
   "schemaVersion": 1,
   "skills": [
     {
+      "name": "audit-investment-thesis",
+      "title": "Audit investment thesis",
+      "summary": "Audit an investment opportunity against a firm's stated mandate and demonstrated historical decision behavior.",
+      "category": "Private equity",
+      "version": "0.1.0",
+      "updatedAt": "2026-08-17",
+      "status": "published",
+      "compatibility": ["chatgpt", "codex"],
+      "builderMode": "source-linked",
+      "promptMode": "standalone",
+      "requirements": [
+        "Access to opportunity materials and at least one source of firm investment criteria",
+        "Authorized access to historical deal records when behavioral calibration is requested"
+      ],
+      "featured": false
+    },
+    {
+      "name": "financial-data-sourcing",
+      "title": "Financial data sourcing",
+      "summary": "Route financial data through authorized connectors first, then a logged-in browser session and local browser automation.",
+      "category": "Financial analysis",
+      "version": "0.1.0",
+      "updatedAt": "2026-08-17",
+      "status": "published",
+      "compatibility": ["chatgpt", "codex"],
+      "builderMode": "self-contained",
+      "promptMode": "standalone",
+      "requirements": [
+        "Authorized financial-data connector, logged-in provider browser session, or analyst-provided export"
+      ],
+      "featured": false
+    },
+    {
       "name": "roll-forward-portfolio-model",
       "title": "Roll forward portfolio model",
       "summary": "Roll forward an existing private equity portfolio company master model from the latest Excel financial report.",
@@ -16,6 +49,23 @@
         "Native .xlsx inspection, editing, recalculation, rendering, and export capability"
       ],
       "featured": true
+    },
+    {
+      "name": "spread-trading-comps",
+      "title": "Spread trading comps",
+      "summary": "Build a sourced public-company trading comps workbook and indicative valuation range for a portfolio company or investment target.",
+      "category": "Private equity",
+      "version": "0.1.0",
+      "updatedAt": "2026-08-17",
+      "status": "published",
+      "compatibility": ["chatgpt", "codex"],
+      "builderMode": "source-linked",
+      "promptMode": "standalone",
+      "requirements": [
+        "Native .xlsx creation, recalculation, rendering, and export capability",
+        "Authorized access to public-company financial and market data or an analyst-provided export"
+      ],
+      "featured": false
     }
   ]
 }
