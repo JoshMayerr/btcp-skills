@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://beacontaylor.com/schemas/distribution.json",
+  "title": "BTCP distribution configuration",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "repositoryUrl", "skillSourceUrlTemplate", "skillArchiveUrlTemplate"],
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "repositoryUrl": { "type": "string", "format": "uri" },
+    "skillSourceUrlTemplate": { "type": "string", "pattern": "\\{name\\}.*\\{version\\}" },
+    "skillArchiveUrlTemplate": { "type": "string", "pattern": "\\{name\\}.*\\{version\\}" }
+  }
+}

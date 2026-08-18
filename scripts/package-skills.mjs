@@ -1,4 +1,4 @@
-import { mkdir, readFile, readdir, rm } from "node:fs/promises";
+import { mkdir, readFile, rm } from "node:fs/promises";
 import { execFile } from "node:child_process";
 import path from "node:path";
 import { promisify } from "node:util";
@@ -12,11 +12,13 @@ const packageRoot = path.join(repoRoot, "packages");
 const pluginCatalog = JSON.parse(
   await readFile(path.join(repoRoot, "catalog", "plugins.json"), "utf8"),
 );
+const skillsCatalog = JSON.parse(
+  await readFile(path.join(repoRoot, "catalog", "skills.json"), "utf8"),
+);
 
-const entries = await readdir(skillRoot, { withFileTypes: true });
-const skillNames = entries
-  .filter((entry) => entry.isDirectory() && !entry.name.startsWith("."))
-  .map((entry) => entry.name)
+const skillNames = skillsCatalog.skills
+  .filter((skill) => skill.status === "published")
+  .map((skill) => skill.name)
   .sort();
 
 const skillPackageRoot = path.join(packageRoot, "skills");

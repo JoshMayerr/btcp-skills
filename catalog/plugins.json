@@ -8,7 +8,7 @@
       "kind": "collection",
       "version": "0.1.0",
       "sourcePath": "plugins/btcp-skills",
-      "skills": []
+      "skills": ["roll-forward-portfolio-model"]
     }
   ]
 }

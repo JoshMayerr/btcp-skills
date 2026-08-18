@@ -21,7 +21,9 @@
           "category",
           "version",
           "updatedAt",
+          "status",
           "compatibility",
+          "builderMode",
           "promptMode"
         ],
         "properties": {
@@ -38,6 +40,9 @@
             "pattern": "^\\d+\\.\\d+\\.\\d+$"
           },
           "updatedAt": { "type": "string", "format": "date" },
+          "status": {
+            "enum": ["draft", "published"]
+          },
           "compatibility": {
             "type": "array",
             "items": {
@@ -57,6 +62,9 @@
           "promptMode": {
             "enum": ["standalone", "reduced", "unavailable"]
           },
+          "builderMode": {
+            "enum": ["self-contained", "source-linked", "unavailable"]
+          },
           "requirements": {
             "type": "array",
             "items": { "type": "string" }
@@ -67,4 +75,3 @@
     }
   }
 }
-

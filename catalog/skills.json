@@ -1,5 +1,21 @@
 {
   "schemaVersion": 1,
-  "skills": []
+  "skills": [
+    {
+      "name": "roll-forward-portfolio-model",
+      "title": "Roll forward portfolio model",
+      "summary": "Roll forward an existing private equity portfolio company master model from the latest Excel financial report.",
+      "category": "Private equity",
+      "version": "0.1.0",
+      "updatedAt": "2026-08-17",
+      "status": "published",
+      "compatibility": ["chatgpt", "codex"],
+      "builderMode": "source-linked",
+      "promptMode": "standalone",
+      "requirements": [
+        "Native .xlsx inspection, editing, recalculation, rendering, and export capability"
+      ],
+      "featured": true
+    }
+  ]
 }
-

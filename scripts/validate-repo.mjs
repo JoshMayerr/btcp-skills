@@ -4,6 +4,7 @@ import { fileURLToPath } from "node:url";
 
 const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const skillRoot = path.join(repoRoot, "skills");
+const draftRoot = path.join(repoRoot, "drafts");
 const pluginRoot = path.join(repoRoot, "plugins");
 const namePattern = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 const versionPattern = /^\d+\.\d+\.\d+$/;
@@ -61,6 +62,7 @@ const assertDirectoriesEqual = async (canonicalDirectory, bundledDirectory, labe
 const skillsCatalog = await readJson("catalog/skills.json");
 const pluginsCatalog = await readJson("catalog/plugins.json");
 const agentsCatalog = await readJson("catalog/agents.json");
+const distribution = await readJson("catalog/distribution.json");
 const codexMarketplace = await readJson(".agents/plugins/marketplace.json");
 const claudeMarketplace = await readJson(".claude-plugin/marketplace.json");
 
@@ -68,18 +70,38 @@ assertCatalog(skillsCatalog, "skills", "catalog/skills.json");
 assertCatalog(pluginsCatalog, "plugins", "catalog/plugins.json");
 assertCatalog(agentsCatalog, "agents", "catalog/agents.json");
 
+if (
+  distribution.schemaVersion !== 1 ||
+  !distribution.repositoryUrl ||
+  !distribution.skillSourceUrlTemplate?.includes("{name}") ||
+  !distribution.skillSourceUrlTemplate?.includes("{version}") ||
+  !distribution.skillArchiveUrlTemplate?.includes("{name}") ||
+  !distribution.skillArchiveUrlTemplate?.includes("{version}")
+) {
+  throw new Error("catalog/distribution.json must define the repository and versioned skill URL templates.");
+}
+
 const skillEntries = await readdir(skillRoot, { withFileTypes: true });
 const skillNames = skillEntries
   .filter((entry) => entry.isDirectory() && !entry.name.startsWith("."))
   .map((entry) => entry.name)
   .sort();
 
-for (const skillName of skillNames) {
+const draftEntries = await readdir(draftRoot, { withFileTypes: true });
+const draftNames = draftEntries
+  .filter((entry) => entry.isDirectory() && !entry.name.startsWith("."))
+  .map((entry) => entry.name)
+  .sort();
+
+for (const [skillName, root] of [
+  ...skillNames.map((name) => [name, skillRoot]),
+  ...draftNames.map((name) => [name, draftRoot]),
+]) {
   if (!namePattern.test(skillName) || skillName.length > 64) {
     throw new Error(`Invalid skill directory name: ${skillName}`);
   }
 
-  const skillPath = path.join(skillRoot, skillName, "SKILL.md");
+  const skillPath = path.join(root, skillName, "SKILL.md");
   await access(skillPath);
   const source = await readFile(skillPath, "utf8");
   const frontmatter = source.match(/^---\n([\s\S]*?)\n---/);
@@ -94,8 +116,43 @@ for (const skillName of skillNames) {
 
 const catalogSkillNames = skillsCatalog.skills.map((skill) => skill.name);
 assertUnique(catalogSkillNames, "Skill catalog names");
-if (JSON.stringify([...catalogSkillNames].sort()) !== JSON.stringify(skillNames)) {
-  throw new Error("Catalog entries must match the canonical skill directories exactly.");
+if (JSON.stringify([...catalogSkillNames].sort()) !== JSON.stringify([...skillNames, ...draftNames].sort())) {
+  throw new Error("Catalog entries must match the published and draft skill directories exactly.");
+}
+
+for (const skill of skillsCatalog.skills) {
+  if (!versionPattern.test(skill.version)) {
+    throw new Error(`Invalid skill version: ${skill.name}@${skill.version}`);
+  }
+  if (!["draft", "published"].includes(skill.status)) {
+    throw new Error(`Invalid status for ${skill.name}: ${skill.status}`);
+  }
+  if (!["self-contained", "source-linked", "unavailable"].includes(skill.builderMode)) {
+    throw new Error(`Invalid builderMode for ${skill.name}: ${skill.builderMode}`);
+  }
+  if (!["standalone", "reduced", "unavailable"].includes(skill.promptMode)) {
+    throw new Error(`Invalid promptMode for ${skill.name}: ${skill.promptMode}`);
+  }
+
+  const isPublished = skill.status === "published";
+  if (isPublished !== skillNames.includes(skill.name)) {
+    throw new Error(`${skill.name} must live in ${isPublished ? "skills" : "drafts"}/ for its status.`);
+  }
+  if (!isPublished && (skill.builderMode !== "unavailable" || skill.promptMode !== "unavailable")) {
+    throw new Error(`Draft skill ${skill.name} cannot expose generated distribution prompts.`);
+  }
+  if (isPublished && skill.builderMode === "self-contained") {
+    const entries = await readdir(path.join(skillRoot, skill.name), { withFileTypes: true });
+    const bundledResources = entries.filter(
+      (entry) => entry.name !== "SKILL.md" && entry.name !== "agents" && entry.name !== ".gitkeep",
+    );
+    if (bundledResources.length > 0) {
+      throw new Error(`${skill.name} has bundled resources and must use source-linked builderMode.`);
+    }
+  }
+  if (isPublished && skill.promptMode === "reduced") {
+    await access(path.join(repoRoot, "prompts", "reduced", `${skill.name}.md`));
+  }
 }
 
 const pluginNames = pluginsCatalog.plugins.map((plugin) => plugin.name);
@@ -204,6 +261,31 @@ if (JSON.stringify(agentPluginNames) !== JSON.stringify(catalogAgentPluginNames)
   throw new Error("Every agent plugin must have exactly one catalog/agents.json entry.");
 }
 
+const promptNames = async (directory) =>
+  (await readdir(path.join(repoRoot, "prompts", directory), { withFileTypes: true }))
+    .filter((entry) => entry.isFile() && entry.name.endsWith(".md"))
+    .map((entry) => entry.name.slice(0, -3))
+    .sort();
+
+const expectedBuilderPrompts = skillsCatalog.skills
+  .filter((skill) => skill.status === "published" && skill.builderMode !== "unavailable")
+  .map((skill) => skill.name)
+  .sort();
+const expectedOneOffPrompts = skillsCatalog.skills
+  .filter((skill) => skill.status === "published" && skill.promptMode !== "unavailable")
+  .map((skill) => skill.name)
+  .sort();
+const [builderPrompts, oneOffPrompts] = await Promise.all([
+  promptNames("create"),
+  promptNames("one-off"),
+]);
+if (JSON.stringify(builderPrompts) !== JSON.stringify(expectedBuilderPrompts)) {
+  throw new Error("Generated builder prompts do not match the published skill catalog.");
+}
+if (JSON.stringify(oneOffPrompts) !== JSON.stringify(expectedOneOffPrompts)) {
+  throw new Error("Generated one-off prompts do not match the published skill catalog.");
+}
+
 console.log(
-  `Validated ${skillNames.length} skill${skillNames.length === 1 ? "" : "s"}, ${pluginNames.length} plugin${pluginNames.length === 1 ? "" : "s"}, and ${agentNames.length} agent${agentNames.length === 1 ? "" : "s"}.`,
+  `Validated ${skillNames.length} published skill${skillNames.length === 1 ? "" : "s"}, ${draftNames.length} draft${draftNames.length === 1 ? "" : "s"}, ${pluginNames.length} plugin${pluginNames.length === 1 ? "" : "s"}, and ${agentNames.length} agent${agentNames.length === 1 ? "" : "s"}.`,
 );
