@@ -6,9 +6,17 @@
       "title": "BTCP skills",
       "summary": "Portable BTCP workflows for AI agents.",
       "kind": "collection",
-      "version": "0.4.0",
+      "version": "0.4.1",
       "sourcePath": "plugins/btcp-skills",
-      "skills": ["audit-investment-thesis", "financial-data-sourcing", "roll-forward-portfolio-model", "spread-trading-comps"]
+      "skills": [
+        "analyze-customer-cohorts",
+        "audit-investment-thesis",
+        "financial-data-sourcing",
+        "integrate-add-on-acquisition",
+        "roll-forward-portfolio-model",
+        "spread-trading-comps",
+        "standardize-portfolio-financials"
+      ]
     }
   ]
 }

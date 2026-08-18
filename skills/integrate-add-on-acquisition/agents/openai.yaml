@@ -1,0 +1,4 @@
+interface:
+  display_name: "Integrate add-on acquisition"
+  short_description: "Update post-close model and capitalization"
+  default_prompt: "Use $integrate-add-on-acquisition to integrate this closed add-on acquisition into the portfolio company model and post-close capitalization table."

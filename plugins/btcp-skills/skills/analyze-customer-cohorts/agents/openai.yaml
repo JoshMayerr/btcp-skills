@@ -1,0 +1,4 @@
+interface:
+  display_name: "Analyze customer cohorts"
+  short_description: "Analyze customer quality, retention, and cohort economics"
+  default_prompt: "Analyze the supplied customer data-room materials for concentration, segmentation, retention, cohorts, growth decomposition, and pricing trends. Produce auditable outputs with source lineage, confidence levels, and explicit limitations."

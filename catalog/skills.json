@@ -2,6 +2,24 @@
   "schemaVersion": 1,
   "skills": [
     {
+      "name": "analyze-customer-cohorts",
+      "title": "Analyze customer cohorts",
+      "summary": "Turn mixed customer data-room evidence into auditable concentration, retention, cohort, growth, and pricing analysis.",
+      "category": "Private equity",
+      "version": "0.1.0",
+      "updatedAt": "2026-08-17",
+      "status": "published",
+      "compatibility": ["chatgpt", "codex"],
+      "builderMode": "source-linked",
+      "promptMode": "standalone",
+      "requirements": [
+        "Spreadsheet inspection, editing, recalculation, rendering, and export capability",
+        "Document and PDF extraction, OCR, and rendering capability",
+        "Web access when public customer enrichment is requested"
+      ],
+      "featured": true
+    },
+    {
       "name": "audit-investment-thesis",
       "title": "Audit investment thesis",
       "summary": "Audit an investment opportunity against a firm's stated mandate and demonstrated historical decision behavior.",
@@ -33,6 +51,23 @@
         "Authorized financial-data connector, logged-in provider browser session, or analyst-provided export"
       ],
       "featured": false
+    },
+    {
+      "name": "integrate-add-on-acquisition",
+      "title": "Integrate add-on acquisition",
+      "summary": "Integrate a closed add-on acquisition into the portfolio company model and post-close capitalization table.",
+      "category": "Private equity",
+      "version": "0.1.0",
+      "updatedAt": "2026-08-17",
+      "status": "published",
+      "compatibility": ["chatgpt", "codex"],
+      "builderMode": "source-linked",
+      "promptMode": "standalone",
+      "requirements": [
+        "Native .xlsx inspection, editing, recalculation, rendering, and export capability",
+        "Document and PDF extraction capability for final transaction and closing materials"
+      ],
+      "featured": true
     },
     {
       "name": "roll-forward-portfolio-model",
@@ -67,6 +102,23 @@
         "Authorized access to public-company financial and market data or an analyst-provided export"
       ],
       "featured": false
+    },
+    {
+      "name": "standardize-portfolio-financials",
+      "title": "Standardize portfolio financials",
+      "summary": "Normalize messy portfolio company results into auditable sponsor, portfolio, and LP reporting packages.",
+      "category": "Private equity",
+      "version": "0.1.0",
+      "updatedAt": "2026-08-17",
+      "status": "published",
+      "compatibility": ["chatgpt", "codex"],
+      "builderMode": "source-linked",
+      "promptMode": "standalone",
+      "requirements": [
+        "Spreadsheet inspection, editing, recalculation, rendering, and export capability",
+        "Document, presentation, or PDF creation and rendering capability when those outputs are requested"
+      ],
+      "featured": true
     }
   ]
 }

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Standardize portfolio financials"
+  short_description: "Normalize portfolio company reporting packages"
+  default_prompt: "Use $standardize-portfolio-financials to normalize these portfolio company submissions, validate the results, and produce an auditable sponsor reporting package."
