@@ -74,11 +74,10 @@ if (
   distribution.schemaVersion !== 1 ||
   !distribution.repositoryUrl ||
   !distribution.skillSourceUrlTemplate?.includes("{name}") ||
-  !distribution.skillSourceUrlTemplate?.includes("{version}") ||
   !distribution.skillArchiveUrlTemplate?.includes("{name}") ||
   !distribution.skillArchiveUrlTemplate?.includes("{version}")
 ) {
-  throw new Error("catalog/distribution.json must define the repository and versioned skill URL templates.");
+  throw new Error("catalog/distribution.json must define the repository, skill source, and versioned archive URL templates.");
 }
 
 const skillEntries = await readdir(skillRoot, { withFileTypes: true });

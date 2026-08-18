@@ -13,7 +13,8 @@ Portable Agent Skills, curated collections, and optional end-to-end agents from 
 - `plugins/<plugin-name>/` contains generated skill bundles plus OpenAI and Claude manifests.
 - `prompts/create/` contains copy-paste prompts for creating skills in ChatGPT.
 - `prompts/one-off/` contains copy-paste prompts for using supported workflows without installation.
-- `packages/skills/` and `packages/plugins/` receive generated ZIP archives.
+- `packages/skills/` contains the versioned ZIP archives linked from the skill gallery.
+- `packages/plugins/` receives generated plugin ZIP archives for release workflows.
 
 Plugin folders stay flat because the OpenAI marketplace resolves them as `./plugins/<plugin-name>`. The catalog records whether each package is a collection or an agent.
 
@@ -27,15 +28,40 @@ To bundle skills for hosted products, add their names to a package in `catalog/p
 
 Run `npm test` before publishing. It regenerates plugin bundles and gallery prompts before validation. Run `npm run package` to generate ZIP archives for every published skill and plugin.
 
-## Install locally
+## Use the skills
 
-Once this repository is public, install an individual skill with:
+### ChatGPT Work
 
-```sh
-npx skills add JoshMayerr/btcp-skills --skill <skill-name>
+Copy a one-off prompt from the [BTCP skill gallery](https://beacontaylor.com/skills) into a new conversation and attach the requested source files. To install the complete collection instead, open ChatGPT Plugins, select the plus button, and paste this repository into Source:
+
+```text
+https://github.com/JoshMayerr/btcp-skills
 ```
 
-Provider-specific plugin installation instructions will be published with the first released skill.
+Add the marketplace, choose BTCP, and install `btcp-skills`.
+
+### Claude
+
+Copy a one-off prompt from the [BTCP skill gallery](https://beacontaylor.com/skills) into a new conversation and attach the requested source files. To reuse one skill, download its ZIP from the gallery, then open [Claude Skills](https://claude.ai/customize/skills) and upload it. ZIP upload is the Claude-only installation path.
+
+### Claude Cowork
+
+Open Customize → Plugins, add this repository as a marketplace, and install `btcp-skills`:
+
+```text
+https://github.com/JoshMayerr/btcp-skills
+```
+
+### Claude Code
+
+Add the marketplace and install the collection:
+
+```sh
+claude plugin marketplace add JoshMayerr/btcp-skills
+claude plugin install btcp-skills@btcp-skills
+```
+
+Start a new session after installation. If Claude asks you to reload plugins in the current session, follow that prompt.
 
 The `btcp-skills` plugin includes financial-data connectors adapted from
 [Anthropic's financial-services repository](https://github.com/anthropics/financial-services/tree/38652224c10610fa52eee2acee3ac712dcff01f2/plugins/vertical-plugins/financial-analysis)
@@ -43,4 +69,4 @@ under the Apache License 2.0. Connector access may require a provider subscripti
 
 ## Gallery actions
 
-Each published skill can expose up to four actions: install from the repository, copy a “Create in ChatGPT” prompt, download a release ZIP, and copy a one-off prompt. Generated builder prompts use immutable `<skill-name>-v<version>` release tags rather than the moving `main` branch.
+Each published skill exposes a one-off prompt, a versioned ZIP for Claude, and interface-specific instructions for installing the complete plugin.

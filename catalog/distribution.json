@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
   "repositoryUrl": "https://github.com/JoshMayerr/btcp-skills",
-  "skillSourceUrlTemplate": "https://raw.githubusercontent.com/JoshMayerr/btcp-skills/{name}-v{version}/skills/{name}/SKILL.md",
-  "skillArchiveUrlTemplate": "https://github.com/JoshMayerr/btcp-skills/releases/download/{name}-v{version}/{name}.zip"
+  "skillSourceUrlTemplate": "https://raw.githubusercontent.com/JoshMayerr/btcp-skills/main/skills/{name}/SKILL.md",
+  "skillArchiveUrlTemplate": "https://github.com/JoshMayerr/btcp-skills/raw/refs/heads/main/packages/skills/{name}-v{version}.zip"
 }

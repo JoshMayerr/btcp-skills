@@ -16,20 +16,19 @@ const skillsCatalog = JSON.parse(
   await readFile(path.join(repoRoot, "catalog", "skills.json"), "utf8"),
 );
 
-const skillNames = skillsCatalog.skills
+const publishedSkills = skillsCatalog.skills
   .filter((skill) => skill.status === "published")
-  .map((skill) => skill.name)
-  .sort();
+  .sort((a, b) => a.name.localeCompare(b.name));
 
 const skillPackageRoot = path.join(packageRoot, "skills");
 const pluginPackageRoot = path.join(packageRoot, "plugins");
 await mkdir(skillPackageRoot, { recursive: true });
 await mkdir(pluginPackageRoot, { recursive: true });
 
-for (const skillName of skillNames) {
-  const archivePath = path.join(skillPackageRoot, `${skillName}.zip`);
+for (const skill of publishedSkills) {
+  const archivePath = path.join(skillPackageRoot, `${skill.name}-v${skill.version}.zip`);
   await rm(archivePath, { force: true });
-  await run("zip", ["-qr", archivePath, skillName], { cwd: skillRoot });
+  await run("zip", ["-qr", archivePath, skill.name], { cwd: skillRoot });
 }
 
 for (const plugin of pluginCatalog.plugins) {
@@ -39,5 +38,5 @@ for (const plugin of pluginCatalog.plugins) {
 }
 
 console.log(
-  `Packaged ${skillNames.length} skill${skillNames.length === 1 ? "" : "s"} and ${pluginCatalog.plugins.length} plugin${pluginCatalog.plugins.length === 1 ? "" : "s"}.`,
+  `Packaged ${publishedSkills.length} skill${publishedSkills.length === 1 ? "" : "s"} and ${pluginCatalog.plugins.length} plugin${pluginCatalog.plugins.length === 1 ? "" : "s"}.`,
 );
