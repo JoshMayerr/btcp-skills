@@ -38,6 +38,7 @@
       "name": "roll-forward-portfolio-model",
       "title": "Roll forward portfolio model",
       "summary": "Roll forward an existing private equity portfolio company master model from the latest Excel financial report.",
+      "examplePrompt": "Roll forward the attached portfolio company master model using the attached latest monthly financial report. Preserve the model's existing structure, formulas, formatting, units, and sign conventions; add the new actual period, refresh trailing metrics, reconcile the results, and return the updated workbook with a concise audit report. Do not overwrite the original master.",
       "category": "Private equity",
       "version": "0.1.0",
       "updatedAt": "2026-08-17",
