@@ -42,7 +42,7 @@
       "version": "0.1.0",
       "updatedAt": "2026-08-17",
       "status": "published",
-      "compatibility": ["chatgpt", "codex"],
+      "compatibility": ["chatgpt", "claude", "codex"],
       "builderMode": "source-linked",
       "promptMode": "standalone",
       "requirements": [
