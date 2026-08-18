@@ -37,6 +37,10 @@ npx skills add JoshMayerr/btcp-skills --skill <skill-name>
 
 Provider-specific plugin installation instructions will be published with the first released skill.
 
+The `btcp-skills` plugin includes financial-data connectors adapted from
+[Anthropic's financial-services repository](https://github.com/anthropics/financial-services/tree/38652224c10610fa52eee2acee3ac712dcff01f2/plugins/vertical-plugins/financial-analysis)
+under the Apache License 2.0. Connector access may require a provider subscription or authentication.
+
 ## Gallery actions
 
 Each published skill can expose up to four actions: install from the repository, copy a “Create in ChatGPT” prompt, download a release ZIP, and copy a one-off prompt. Generated builder prompts use immutable `<skill-name>-v<version>` release tags rather than the moving `main` branch.
