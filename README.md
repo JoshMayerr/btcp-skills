@@ -14,25 +14,12 @@ Review the source and any connector permissions before installing a package.
 
 ### ChatGPT
 
-ChatGPT does not currently document a self-service way to install an arbitrary plugin bundle from a ZIP file or GitHub repository URL. Do not upload `packages/plugins/btcp-skills.zip` as a ChatGPT plugin.
+1. Download a skill ZIP from the [BTCP skill gallery](https://beacontaylor.com/skills).
+2. In ChatGPT, open **Plugins → Skills**.
+3. Select **Create → Upload from your computer**.
+4. Choose the ZIP and wait for ChatGPT to scan and install it.
 
-Plugins available to your account are installed from the Plugin Directory:
-
-1. In ChatGPT on the web or desktop, select **Plugins** in the sidebar. You can also open your profile menu and select **Settings → Plugins**.
-2. Open the plugin you want from the directory.
-3. Select **Connect** when available and complete any required authorization.
-
-For managed Business, Enterprise, or Edu workspaces, administrators control plugin availability and installation policy under **Workspace settings → Plugins**. Until the complete BTCP plugin is published to the directory or made available by your workspace administrator, use a standalone BTCP skill or a one-off prompt in ChatGPT.
-
-#### Install one skill
-
-1. Download the skill ZIP from the [BTCP skill gallery](https://beacontaylor.com/skills).
-2. In the ChatGPT sidebar, select **Plugins**.
-3. Select the **Skills** tab.
-4. Select **Create → Upload from your computer**. The uploader accepts a `.zip` or `.skill` skill package, or a standalone `SKILL.md` file.
-5. Wait for ChatGPT to scan the skill, review any warnings, and finish the installation.
-
-Personal skills must be added separately on desktop and on web/mobile; they do not currently sync between those surfaces. OpenAI documents ZIP upload for [skills in ChatGPT](https://help.openai.com/en/articles/20001066), while its [plugin instructions](https://help.openai.com/en/articles/20001256) direct users to the Plugin Directory and workspace settings.
+The complete `btcp-skills` plugin cannot be uploaded to ChatGPT as a ZIP. It must be published in the Plugin Directory or provided by your workspace administrator. See OpenAI's current documentation for [Skills in ChatGPT](https://help.openai.com/en/articles/20001066).
 
 ### Claude Cowork
 
