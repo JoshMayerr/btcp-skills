@@ -295,12 +295,16 @@ const expectedOneOffPrompts = skillsCatalog.skills
   .filter((skill) => skill.status === "published" && skill.promptMode !== "unavailable")
   .map((skill) => skill.name)
   .sort();
-const [builderPrompts, oneOffPrompts] = await Promise.all([
+const [builderPrompts, claudeBuilderPrompts, oneOffPrompts] = await Promise.all([
   promptNames("create"),
+  promptNames("create-claude"),
   promptNames("one-off"),
 ]);
 if (JSON.stringify(builderPrompts) !== JSON.stringify(expectedBuilderPrompts)) {
   throw new Error("Generated builder prompts do not match the published skill catalog.");
+}
+if (JSON.stringify(claudeBuilderPrompts) !== JSON.stringify(expectedBuilderPrompts)) {
+  throw new Error("Generated Claude builder prompts do not match the published skill catalog.");
 }
 if (JSON.stringify(oneOffPrompts) !== JSON.stringify(expectedOneOffPrompts)) {
   throw new Error("Generated one-off prompts do not match the published skill catalog.");

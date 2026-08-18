@@ -6,6 +6,7 @@ const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), ".."
 const catalog = JSON.parse(await readFile(path.join(repoRoot, "catalog", "skills.json"), "utf8"));
 const distribution = JSON.parse(await readFile(path.join(repoRoot, "catalog", "distribution.json"), "utf8"));
 const createRoot = path.join(repoRoot, "prompts", "create");
+const createClaudeRoot = path.join(repoRoot, "prompts", "create-claude");
 const oneOffRoot = path.join(repoRoot, "prompts", "one-off");
 const reducedRoot = path.join(repoRoot, "prompts", "reduced");
 
@@ -15,10 +16,12 @@ const skillBody = (source) => source.replace(/^---\n[\s\S]*?\n---\n?/, "").trim(
 
 await Promise.all([
   rm(createRoot, { recursive: true, force: true }),
+  rm(createClaudeRoot, { recursive: true, force: true }),
   rm(oneOffRoot, { recursive: true, force: true }),
 ]);
 await Promise.all([
   mkdir(createRoot, { recursive: true }),
+  mkdir(createClaudeRoot, { recursive: true }),
   mkdir(oneOffRoot, { recursive: true }),
   mkdir(reducedRoot, { recursive: true }),
 ]);
@@ -37,9 +40,7 @@ for (const skill of [...catalog.skills].sort((a, b) => a.name.localeCompare(b.na
     const canonicalSource = skill.builderMode === "self-contained"
       ? `Use this exact canonical SKILL.md as the source:\n\n\`\`\`markdown\n${source.trim()}\n\`\`\``
       : `Download the complete canonical package from:\n${archiveUrl}\n\nThe canonical SKILL.md is also available at:\n${sourceUrl}`;
-    await writeFile(
-      path.join(createRoot, `${skill.name}.md`),
-      `Use [$skill-creator](/Users/joshmayer/.codex/skills/.system/skill-creator/SKILL.md) to install the “${skill.title}” skill in my personal skills directory.
+    const builderPrompt = (opening) => `${opening}
 
 ${canonicalSource}
 
@@ -52,8 +53,17 @@ After installing it, tell me:
 - Whether I need to start a new task for it to become available
 
 Then ask whether I also want to install the complete BTCP plugin, which includes the rest of the BTCP finance skills and its useful optional connectors. The plugin is great for financial workflows to make automation more reliable.
-`,
-    );
+`;
+    await Promise.all([
+      writeFile(
+        path.join(createRoot, `${skill.name}.md`),
+        builderPrompt(`Use [$skill-creator](/Users/joshmayer/.codex/skills/.system/skill-creator/SKILL.md) to install the “${skill.title}” skill in my personal skills directory.`),
+      ),
+      writeFile(
+        path.join(createClaudeRoot, `${skill.name}.md`),
+        builderPrompt(`Use /skill-creator to install the “${skill.title}” skill in my personal skills directory.`),
+      ),
+    ]);
     builderCount += 1;
   }
 
@@ -72,7 +82,10 @@ ${oneOffSource}
   }
 }
 
-if (builderCount === 0) await writeFile(path.join(createRoot, ".gitkeep"), "");
+if (builderCount === 0) {
+  await writeFile(path.join(createRoot, ".gitkeep"), "");
+  await writeFile(path.join(createClaudeRoot, ".gitkeep"), "");
+}
 if (oneOffCount === 0) await writeFile(path.join(oneOffRoot, ".gitkeep"), "");
 
 console.log(
