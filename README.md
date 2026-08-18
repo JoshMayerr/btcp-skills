@@ -29,12 +29,12 @@ For managed Business, Enterprise, or Edu workspaces, administrators control plug
 1. Download the skill ZIP from the [BTCP skill gallery](https://beacontaylor.com/skills).
 2. In the ChatGPT sidebar, select **Plugins**.
 3. Select the **Skills** tab.
-4. Select **Create → Upload from your computer** and choose the ZIP.
+4. Select **Create → Upload from your computer**. The uploader accepts a `.zip` or `.skill` skill package, or a standalone `SKILL.md` file.
 5. Wait for ChatGPT to scan the skill, review any warnings, and finish the installation.
 
 Personal skills must be added separately on desktop and on web/mobile; they do not currently sync between those surfaces. OpenAI documents ZIP upload for [skills in ChatGPT](https://help.openai.com/en/articles/20001066), while its [plugin instructions](https://help.openai.com/en/articles/20001256) direct users to the Plugin Directory and workspace settings.
 
-### Claude and Cowork
+### Claude Cowork
 
 #### Install one skill in Claude
 
@@ -113,7 +113,7 @@ Each published skill in the gallery includes a one-off prompt, a versioned stand
 - `catalog/distribution.json` defines versioned source and release URLs used by generated prompts.
 - `plugins/<plugin-name>/` contains generated skill bundles plus OpenAI and Claude manifests.
 - `prompts/create/` contains copy-paste prompts for creating skills in ChatGPT.
-- `prompts/create-claude/` contains the same prompts addressed to `/skill-creator` in Claude and Cowork.
+- `prompts/create-claude/` contains the same prompts addressed to `/skill-creator` in Claude Cowork.
 - `prompts/one-off/` contains copy-paste prompts for using supported workflows without installation.
 - `packages/skills/` contains the versioned ZIP archives linked from the skill gallery.
 - `packages/plugins/` receives generated plugin ZIP archives for release workflows.
