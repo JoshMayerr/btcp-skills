@@ -1,0 +1,4 @@
+interface:
+  display_name: "Growth Equity Deal Room"
+  short_description: "Execute evidence-linked growth-equity diligence"
+  default_prompt: "Use $growth-equity-deal-room to execute the full applicable diligence suite from these files. Produce the required separate workstream artifacts, run the deliverable validator, and do not ask me to choose outputs."

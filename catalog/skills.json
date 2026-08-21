@@ -70,6 +70,26 @@
       "featured": false
     },
     {
+      "name": "growth-equity-deal-room",
+      "title": "Growth equity deal room",
+      "summary": "Execute an evidence-linked growth-equity diligence suite from deal-room materials and produce separate, validated IC workstreams.",
+      "examplePrompt": "Run the full applicable growth-equity diligence suite on these deal-room files. Inventory the evidence, identify gaps, produce the separate customer/ARR, minority model, IC, public-data, value-creation, management, legal, and synthesis deliverables, and validate the completed package.",
+      "category": "Private equity",
+      "version": "0.1.0",
+      "updatedAt": "2026-08-21",
+      "status": "published",
+      "compatibility": ["chatgpt", "claude", "codex"],
+      "builderMode": "source-linked",
+      "promptMode": "standalone",
+      "requirements": [
+        "Spreadsheet inspection, editing, recalculation, rendering, and export capability",
+        "Word document creation and rendering capability",
+        "Document and PDF extraction capability",
+        "Web access for public-data research and hiring intelligence"
+      ],
+      "featured": true
+    },
+    {
       "name": "integrate-add-on-acquisition",
       "title": "Integrate add-on acquisition",
       "summary": "Integrate a closed add-on acquisition into the portfolio company model and post-close capitalization table.",
